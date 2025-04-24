@@ -14,3 +14,5 @@ COPY config.json /freqtrade/config.json
 COPY user_data/strategies /freqtrade/user_data/strategies
 
 CMD ["freqtrade", "trade", "--config", "config.json", "--strategy", "SampleStrategy"]
+
+
