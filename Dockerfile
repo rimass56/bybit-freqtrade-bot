@@ -1,18 +1,6 @@
-FROM python:3.10-slim
+FROM freqtradeorg/freqtrade:stable
 
-RUN apt-get update && \
-    apt-get install -y git build-essential libssl-dev libffi-dev python3-dev && \
-    apt-get clean
+COPY config.json /freqtrade/user_data/config.json
+COPY strategies /freqtrade/user_data/strategies
 
-WORKDIR /freqtrade
-
-RUN git clone --branch develop https://github.com/freqtrade/freqtrade.git . && \
-    pip install --upgrade pip && \
-    pip install .
-
-COPY config.json /freqtrade/config.json
-COPY user_data/strategies /freqtrade/user_data/strategies
-
-CMD ["freqtrade", "trade", "--config", "config.json", "--strategy", "SampleStrategy"]
-
-
+CMD ["freqtrade", "trade", "--config", "user_data/config.json", "--strategy", "SampleStrategy"]
